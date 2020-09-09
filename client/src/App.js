@@ -2,28 +2,52 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+
 import HomePage from "./pages/homepage/homepage.component";
-import ShopPage from "./pages/shop/shop.component.jsx";
+import ShopPage from "./pages/shop/shop.component";
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+
 class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
       currentUser: null,
     };
   }
+
   unsubscribeFromAuth = null;
+
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        //We need userRef to check if our database is updated
+        //if we use just snapShot, we get just some information but not data
+        // so we have to write snapShot.data() to get actual data
+        userRef.onSnapshot((snapShot) => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+
+          console.log(this.state);
+        });
+      }
+
+      this.setState({ currentUser: userAuth });
+      //When user logt out currentUser become null
     });
   }
+
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
+
   render() {
     return (
       <div>
