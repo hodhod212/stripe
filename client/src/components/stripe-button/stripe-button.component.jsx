@@ -1,7 +1,6 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import Logo from "./images/star.svg";
-
 const StripeCheckoutButton = ({ price, cartItems, total }) => {
   const priceForStripe = price * 100;
   const publishableKey =
@@ -14,7 +13,7 @@ const StripeCheckoutButton = ({ price, cartItems, total }) => {
 
   return (
     <StripeCheckout
-      label="Pay Now"
+      label="Pay By Stripe"
       name="Gothenborg Clothing"
       billingAddress
       shippingAddress
