@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import Logo from "./images/star.svg";
 const StripeCheckoutButton = ({ price }) => {
+  let [responseData, setResponseData] = React.useState("");
   const priceForStripe = price * 100;
   const publishableKey =
-    'pk_test_Regi6NcnEv29f9kr55tLuOlM008ffZ5i8J';
-
+    "'pk_test_Regi6NcnEv29f9kr55tLuOlM008ffZ5i8J';";
+ 
   const onToken = (token) => {
     axios({
       url: "payment",
@@ -16,9 +17,26 @@ const StripeCheckoutButton = ({ price }) => {
         token: token,
       },
     })
-      .then((response) => {
+      .then(async (response) => {
         alert("succesful payment");
-        console.log("response", response);
+        setResponseData(response.data);
+        console.log("response", response.data);
+        const book = {
+          Amount: response.data.success.amount,
+          Name: response.data.success.source.name,
+          City: response.data.success.source.address_city,
+          Country: response.data.success.source.address_country,
+          Address: response.data.success.source.address_line1,
+          Postnumber: response.data.success.source.address_zip,
+          Brand: response.data.success.source.brand,
+          Source_Country: response.data.success.source.country,
+        };
+        await axios
+          .post("http://localhost:5001/create", book)
+          .then(() => console.log(book))
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((error) => {
         console.log("Payment Error: ", error);
@@ -27,25 +45,22 @@ const StripeCheckoutButton = ({ price }) => {
         );
       });
   };
-
   return (
-    <StripeCheckout
-      label="Pay by Stripe"
-      name="Gothenburg Clothing"
-      billingAddress
-      shippingAddress
-      image={Logo}
-      description={`Your total is $${price}`}
-      amount={priceForStripe}
-      panelLabel="Pay by Stripe"
-      token={onToken}
-      stripeKey={publishableKey}
-    />
+    <>
+      <StripeCheckout
+        label="Pay by Stripe"
+        name="Gothenburg Clothing"
+        billingAddress
+        shippingAddress
+        image={Logo}
+        description={`Your total is $${price}`}
+        amount={priceForStripe}
+        panelLabel="Pay by Stripe"
+        token={onToken}
+        stripeKey={publishableKey}
+      />
+    </>
   );
 };
-
+ 
 export default StripeCheckoutButton;
-
-//import Logo from  './images/star.svg';
-//image={Logo}
-//const publishableKey = 'pk_live_DWVEO1rWT1qWle5i9ILzjKCT00xyhU1jyW';
