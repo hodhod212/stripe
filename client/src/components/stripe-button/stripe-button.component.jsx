@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import Logo from "./images/star.svg";
@@ -6,7 +6,7 @@ const StripeCheckoutButton = ({ price }) => {
   let [responseData, setResponseData] = React.useState("");
   const priceForStripe = price * 100;
   const publishableKey =
-    "'pk_test_Regi6NcnEv29f9kr55tLuOlM008ffZ5i8J';";
+    "'pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
  
   const onToken = (token) => {
     axios({
