@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let books = [];
-
+let boks = [];
 app.get("/home", function (req, res) {
   console.log("Inside Home Login");
   res.writeHead(200, {
@@ -47,10 +47,19 @@ app.post("/create", function (req, res) {
     Brand: req.body.Brand,
     Source_Country: req.body.Country,
   };
+  const oldBook = {
+    quantity: req.body.quantity,
+    price: req.body.price,
+    name: req.body.name,
+  };
   books.push(newBook);
+  boks.push(oldBook);
   console.log(books);
+  console.log(boks);
+  var json2 = JSON.stringify(oldBook);
   var json = JSON.stringify(newBook);
   fs.appendFileSync("message.json", json);
+  fs.appendFileSync("message.json", json2);
   fs.appendFileSync("message.json", ",");
 });
 
