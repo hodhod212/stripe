@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+// import { connect } from "react-redux";
 import Logo from "./images/star.svg";
+import { createStructuredSelector } from "reselect";
+// import {
+//   selectCartItemsRemove,
+// } from "../../redux/cart/cart.selectors";
+
 const StripeCheckoutButton = ({ price }) => {
-  let [responseData, setResponseData] = React.useState("");
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
@@ -19,7 +24,12 @@ const StripeCheckoutButton = ({ price }) => {
     })
       .then(async (response) => {
         alert("succesful payment");
-        setResponseData(response.data);
+        // const mapStateToProps = createStructuredSelector({
+        //   selectCartItemsRemove
+          
+        // });
+        // console.log(selectCartItemsRemove)
+        //  connect(mapStateToProps);
         console.log("response", response.data);
         const book = {
           Amount: response.data.success.amount,

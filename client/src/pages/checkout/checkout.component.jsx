@@ -8,7 +8,10 @@ import CheckoutItem from "../../components/checkout-item/checkout-item.component
 import {
   selectCartItems,
   selectCartTotal,
+  selectCartItemsRemove,
 } from "../../redux/cart/cart.selectors";
+
+// import clearCart from '../../redux/cart/cart.actions';
 
 import {
   CheckoutPageContainer,
@@ -16,9 +19,11 @@ import {
   HeaderBlockContainer,
   TotalContainer,
   WarningContainer,
+  ClearButton
 } from "./checkout.styles";
 
-const CheckoutPage = ({ cartItems, total }) => (
+const CheckoutPage = ({ cartItems, total  }) => (
+  
   <CheckoutPageContainer>
     <CheckoutHeaderContainer>
       <HeaderBlockContainer>
@@ -41,6 +46,12 @@ const CheckoutPage = ({ cartItems, total }) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
     <TotalContainer>TOTAL: ${total}</TotalContainer>
+
+
+    <ClearButton  >
+    {/* <div onClick={() => clearCart()}>&#10095;</div> */}
+      Clear button 
+      </ClearButton>
     <WarningContainer>
       *Please use your credit cart for payment*
       <br />
@@ -53,7 +64,9 @@ const CheckoutPage = ({ cartItems, total }) => (
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
   total: selectCartTotal,
+  remove: selectCartItemsRemove
   
 });
-console.log("maps",mapStateToProps)
+
+
 export default connect(mapStateToProps)(CheckoutPage);

@@ -10,7 +10,7 @@ export const addItem = item => ({
 });
 
 export const removeItem = item => ({
-  type: CartActionTypes.REMOVE_ITEM,
+  type: CartActionTypes.REMOVE_ITEMs,
   payload: item
 });
 
@@ -19,7 +19,7 @@ export const clearItemFromCart = item => ({
   payload: item
 });
 
-export const clearCart = () => ({
+export const  clearCart = () => ({
   type: CartActionTypes.CLEAR_CART
 });
 
@@ -31,3 +31,8 @@ export const setCartFromFirebase = cartItems => ({
   type: CartActionTypes.SET_CART_FROM_FIREBASE,
   payload: cartItems
 });
+export const emptyCart = () => {
+  return {
+    type: CartActionTypes.EMPTY_CART
+  }
+}

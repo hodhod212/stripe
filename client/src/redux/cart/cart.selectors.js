@@ -7,6 +7,8 @@ export const selectCartItems = createSelector(
   cart => cart.cartItems
 );
 
+
+
 export const selectCartHidden = createSelector(
   [selectCart],
   cart => cart.hidden
@@ -31,5 +33,12 @@ export const selectCartTotal = createSelector(
       0
     )
 );
-
-
+export const selectCartItemsRemove = createSelector(
+  [selectCartItems],
+  cartItems =>
+    cartItems.reduce(
+      (cartItem) =>
+         cartItem.quantity , 
+      0
+    )
+);

@@ -40,6 +40,17 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.payload
       };
+      case CartActionTypes.EMPTY_CART:
+        console.log("delete")
+        return {
+          
+          ...state,
+          products: state.products.map(product =>
+          product.selected
+          ? {...product, selected: false, quantity: 1}
+          : product,
+          ),
+        };
     default:
       return state;
   }
