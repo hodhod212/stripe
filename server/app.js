@@ -38,8 +38,18 @@ app.post("/create", function (req, res) {
     Brand: req.body.Brand,
     Source_Country: req.body.Country,
   };
-  books.push(newBook);
-  console.log(books);
+
+  if (newBook) {
+    console.log(books);
+    books.push(newBook);
+
+    fs.writeFile('file.json', JSON.stringify(newBook), (error) => {
+      if (error) {
+        throw error
+      }
+    })
+  }
+  
 });
 
 //start your server on port 3001
