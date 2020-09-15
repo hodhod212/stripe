@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import Logo from "./images/star.svg";
@@ -7,8 +7,8 @@ const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
-  
-    const onToken = (token) => {
+
+  const onToken = (token) => {
     axios({
       url: "payment",
       method: "post",
@@ -32,7 +32,7 @@ const StripeCheckoutButton = ({ price }) => {
           Source_Country: response.data.success.source.country,
         };
         await axios
-          .post("http://localhost:5001/create", book)
+          .post("http://localhost:5000/create", book)
           .then(() => console.log(book))
           .catch((err) => {
             console.error(err);
@@ -62,5 +62,5 @@ const StripeCheckoutButton = ({ price }) => {
     </>
   );
 };
- 
+
 export default StripeCheckoutButton;
