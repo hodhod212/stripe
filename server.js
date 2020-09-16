@@ -72,7 +72,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(port, (error) => {
-  if (error) throw error;
+  if (error) throw "";
   console.log("Server running on port " + port);
 });
 
@@ -84,7 +84,7 @@ app.post("/payment", (req, res) => {
   };
   stripe.charges.create(body, (stripeErr, stripeRes) => {
     if (stripeErr) {
-      res.status(500).send({ error: stripeErr });
+      res.status(500).send({ error: "stripeErr" });
     } else {
       res.status(200).send({ success: stripeRes });
     }
