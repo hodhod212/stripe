@@ -27,7 +27,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
     .post("http://localhost:5000/create", qw)
     .then(() => console.log("Book Created"))
     .catch((err) => {
-      console.error(err);
+      console.error("");
     });
   return (
     <CheckoutItemContainer>

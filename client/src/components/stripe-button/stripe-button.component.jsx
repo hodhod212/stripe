@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { persistor } from "../../redux/store";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -22,8 +23,9 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
       },
     })
       .then(async (response) => {
-        // alert("succesful payment");
-       
+        alert("succesful payment");
+        persistor.purge();
+        setResponseData(response.data);
         console.log("response", response.data);
         const book = {
           Amount: response.data.success.amount,
@@ -41,7 +43,7 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
           .post("http://localhost:5000/create", book)
           .then(() => console.log(book))
           .catch((err) => {
-            console.error(err);
+            console.error("");
           });
       })
       .catch((error) => {
