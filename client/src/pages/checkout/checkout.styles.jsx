@@ -55,6 +55,11 @@ export const TotalContainer = styled.div`
   margin-left: auto;
   font-size: 36px;
 `;
+export const ClearButton = styled.button`
+margin-top: 30px;
+margin-left: auto;
+font-size: 36px;
+`;
 
 export const WarningContainer = styled.div`
   text-align: center;

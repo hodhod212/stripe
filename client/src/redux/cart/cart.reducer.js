@@ -1,5 +1,6 @@
 import CartActionTypes from './cart.types';
-import { addItemToCart, removeItemFromCart } from './cart.utils';
+import { addItemToCart, removeItemFromCart  } from './cart.utils';
+
 
 const INITIAL_STATE = {
   hidden: true,
@@ -40,6 +41,17 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.payload
       };
+      case CartActionTypes.EMPTY_CART:
+        console.log("delete")
+        return {
+          
+          ...state,
+          cartItems: state.cartItems.map(cartItem =>
+            cartItem.selected
+          ? {...cartItem, selected: false, quantity: 1}
+          : cartItem,
+          ),
+        };
     default:
       return state;
   }

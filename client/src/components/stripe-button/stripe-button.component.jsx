@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import { connect } from "react-redux";
 import Logo from "./images/star.svg";
-const StripeCheckoutButton = ({ price }) => {
-  let [responseData, setResponseData] = React.useState("");
+import {clearCart} from '../../redux/cart/cart.actions'
+
+const StripeCheckoutButton = ({ price, onClearCart }) => {
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
 
   const onToken = (token) => {
+    console.log('YOOOOOOOOOOO')
     axios({
       url: "payment",
       method: "post",
@@ -19,8 +22,8 @@ const StripeCheckoutButton = ({ price }) => {
       },
     })
       .then(async (response) => {
-        alert("succesful payment");
-        setResponseData(response.data);
+        // alert("succesful payment");
+       
         console.log("response", response.data);
         const book = {
           Amount: response.data.success.amount,
@@ -32,6 +35,8 @@ const StripeCheckoutButton = ({ price }) => {
           Brand: response.data.success.source.brand,
           Source_Country: response.data.success.source.country,
         };
+        
+          onClearCart();
         await axios
           .post("http://localhost:5000/create", book)
           .then(() => console.log(book))
@@ -64,4 +69,9 @@ const StripeCheckoutButton = ({ price }) => {
   );
 };
 
-export default StripeCheckoutButton;
+const mapDispatchToProps = dispatch => ({
+ 
+  onClearCart: () => dispatch(clearCart()) 
+});
+ export default connect(null, mapDispatchToProps)(StripeCheckoutButton);
+
