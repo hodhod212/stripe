@@ -33,12 +33,6 @@ export const selectCartTotal = createSelector(
       0
     )
 );
-export const selectCartItemsRemove = createSelector(
-  [selectCartItems],
-  cartItems =>
-    cartItems.reduce(
-      (cartItem) =>
-         cartItem.quantity , 
-      0
-    )
-);
+
+
+//just for test

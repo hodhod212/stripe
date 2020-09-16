@@ -48,4 +48,9 @@ export const RemoveButtonContainer = styled.div`
   padding-left: 12px;
   cursor: pointer;
 `;
+export const ClearButton = styled.button`
+margin-top: 30px;
+margin-left: auto;
+font-size: 36px;
+`;
 

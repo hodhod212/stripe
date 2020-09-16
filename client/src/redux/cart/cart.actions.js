@@ -31,8 +31,15 @@ export const setCartFromFirebase = cartItems => ({
   type: CartActionTypes.SET_CART_FROM_FIREBASE,
   payload: cartItems
 });
-export const emptyCart = () => {
+export function emptyCart()  {
+  console.log("clear_action")
   return {
     type: CartActionTypes.EMPTY_CART
+    
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onClearCart: () => (dispatch(clearCart()))
+  }
+};
