@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { persistor } from "../../redux/store";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { connect } from "react-redux";
 import Logo from "./images/star.svg";
 import { clearCart } from "../../redux/cart/cart.actions";
-
+import { persistor } from "../../redux/store";
 const StripeCheckoutButton = ({ price, onClearCart }) => {
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
 
   const onToken = (token) => {
-    console.log("ggggggggggggggggggg", persistor.getState());
-    console.log("YOOOOOOOOOOO");
     axios({
       url: "payment",
       method: "post",
@@ -24,8 +21,9 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
       },
     })
       .then(async (response) => {
-        alert("succesful payment");
-
+        //alert("succesful payment");
+        window.location.href = "/success";
+        persistor.purge();
         console.log("response", response.data);
         const book = {
           Amount: response.data.success.amount,
@@ -37,7 +35,6 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
           Brand: response.data.success.source.brand,
           Source_Country: response.data.success.source.country,
         };
-
         onClearCart();
         await axios
           .post("http://localhost:5000/create", book)
@@ -48,9 +45,12 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
       })
       .catch((error) => {
         console.log("Payment Error: ", error);
-        alert(
+
+        window.location.href = "/fail";
+
+        /* alert(
           "There was an issue with your payment! Please make sure you use the provided credit card."
-        );
+        ); */
       });
   };
   return (
