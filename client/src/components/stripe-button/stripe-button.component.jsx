@@ -12,6 +12,7 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
 
   const onToken = (token) => {
+    console.log("ggggggggggggggggggg", persistor.getState());
     console.log("YOOOOOOOOOOO");
     axios({
       url: "payment",
@@ -24,7 +25,6 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
     })
       .then(async (response) => {
         alert("succesful payment");
-        persistor.purge();
 
         console.log("response", response.data);
         const book = {
