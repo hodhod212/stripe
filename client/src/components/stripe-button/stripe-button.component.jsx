@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { connect } from "react-redux";
-import Logo from "./images/star.svg";
 import { clearCart } from "../../redux/cart/cart.actions";
 import { persistor } from "../../redux/store";
 const StripeCheckoutButton = ({ price, onClearCart }) => {
@@ -21,7 +20,6 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
       },
     })
       .then(async (response) => {
-        //alert("succesful payment");
         window.location.href = "/success";
         persistor.purge();
         console.log("response", response.data);
@@ -47,10 +45,6 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
         console.log("Payment Error: ", error);
 
         window.location.href = "/fail";
-
-        /* alert(
-          "There was an issue with your payment! Please make sure you use the provided credit card."
-        ); */
       });
   };
   return (
@@ -60,7 +54,6 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
         name="Gothenburg Clothing"
         billingAddress
         shippingAddress
-        image={Logo}
         description={`Your total is $${price}`}
         amount={priceForStripe}
         panelLabel="Pay by Stripe"
