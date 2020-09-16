@@ -1,15 +1,11 @@
-
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-
 import {
   clearItemFromCart,
   addItem,
   removeItem,
-
 } from "../../redux/cart/cart.actions";
-
 
 import {
   CheckoutItemContainer,
@@ -17,7 +13,6 @@ import {
   TextContainer,
   QuantityContainer,
   RemoveButtonContainer,
-
 } from "./checkout-item.styles";
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
@@ -27,7 +22,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
     .post("http://localhost:5000/create", qw)
     .then(() => console.log("Book Created"))
     .catch((err) => {
-      console.error("");
+      console.error(err);
     });
   return (
     <CheckoutItemContainer>
@@ -44,21 +39,14 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
       <RemoveButtonContainer onClick={() => clearItem(cartItem)}>
         &#10005;
       </RemoveButtonContainer>
-      
     </CheckoutItemContainer>
-    
   );
 };
-const mapDispatchToProps = dispatch => ({
-  clearItem: item => dispatch(clearItemFromCart(item)),
-  addItem: item => dispatch(addItem(item)),
-  removeItem: item => dispatch(removeItem(item)),
 
+const mapDispatchToProps = (dispatch) => ({
+  clearItem: (item) => dispatch(clearItemFromCart(item)),
+  addItem: (item) => dispatch(addItem(item)),
+  removeItem: (item) => dispatch(removeItem(item)),
 });
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onClearCart: () => (dispatch(clearCart()))
-//   }
-// };
-export default CheckoutItem;
 
+export default connect(null, mapDispatchToProps)(CheckoutItem);
