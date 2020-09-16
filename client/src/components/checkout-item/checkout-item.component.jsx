@@ -7,6 +7,7 @@ import {
   clearItemFromCart,
   addItem,
   removeItem,
+  clearItem
 
 } from "../../redux/cart/cart.actions";
 
@@ -55,10 +56,6 @@ const mapDispatchToProps = dispatch => ({
   removeItem: item => dispatch(removeItem(item)),
 
 });
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onClearCart: () => (dispatch(clearCart()))
-//   }
-// };
-export default CheckoutItem;
+
+export default connect(mapDispatchToProps)(CheckoutItem);
 
