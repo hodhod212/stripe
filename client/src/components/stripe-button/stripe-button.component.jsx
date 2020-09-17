@@ -75,4 +75,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(StripeCheckoutButton);
-// export default connect(mapDispatchToProps)(StripeCheckoutButton)

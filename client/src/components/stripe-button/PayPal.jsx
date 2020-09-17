@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { clearCart } from "../../redux/cart/cart.actions";
+import { persistor } from "../../redux/store";
 import {
   selectCartItems,
   selectCartTotal,
 } from "../../redux/cart/cart.selectors";
-function Paypal({ total }) {
+function Paypal({ total, onClearCart }) {
   const paypal = useRef();
   useEffect(() => {
     window.paypal
@@ -26,6 +28,13 @@ function Paypal({ total }) {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
+          if (order) {
+            onClearCart();
+            persistor.purge();
+            window.location.href = "/success";
+          } else {
+            window.location.href = "/fail";
+          }
           console.log(order);
         },
         onError: (err) => {
@@ -41,8 +50,12 @@ function Paypal({ total }) {
     </div>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  onClearCart: () => dispatch(clearCart()),
+});
+
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
   total: selectCartTotal,
 });
-export default connect(mapStateToProps)(Paypal);
+export default connect(mapStateToProps, mapDispatchToProps)(Paypal);
