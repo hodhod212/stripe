@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PayPal from "./PayPal";
-import { persistor } from "../../redux/store";
+
 function PayPalPayment() {
   const [checkout, setCheckout] = useState(false);
 
@@ -20,5 +20,5 @@ function PayPalPayment() {
     </div>
   );
 }
-persistor.purge();
+
 export default PayPalPayment;
