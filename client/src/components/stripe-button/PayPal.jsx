@@ -1,8 +1,12 @@
 import React, { useRef, useEffect } from "react";
-
-export default function Paypal() {
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../redux/cart/cart.selectors";
+function Paypal({ total }) {
   const paypal = useRef();
-
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -14,7 +18,7 @@ export default function Paypal() {
                 description: "Cool looking table",
                 amount: {
                   currency_code: "USD",
-                  value: 5.0,
+                  value: total,
                 },
               },
             ],
@@ -37,3 +41,8 @@ export default function Paypal() {
     </div>
   );
 }
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+  total: selectCartTotal,
+});
+export default connect(mapStateToProps)(Paypal);
