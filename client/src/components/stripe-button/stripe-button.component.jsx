@@ -5,8 +5,11 @@ import axios from "axios";
 import { connect } from "react-redux";
 import Logo from "./images/star.svg";
 import { clearCart } from "../../redux/cart/cart.actions";
+import { createStructuredSelector } from "reselect";
+import { selectCartItems } from "../../redux/cart/cart.selectors";
 
 const StripeCheckoutButton = ({ price, onClearCart }) => {
+  // const myprops = Props.cartItems
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";
@@ -24,24 +27,19 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
     })
       .then(async (response) => {
         alert("succesful payment");
-        persistor.purge();
-
         console.log("response", response.data);
-        const book = {
-          Amount: response.data.success.amount,
-          Name: response.data.success.source.name,
-          City: response.data.success.source.address_city,
-          Country: response.data.success.source.address_country,
-          Address: response.data.success.source.address_line1,
-          Postnumber: response.data.success.source.address_zip,
-          Brand: response.data.success.source.brand,
-          Source_Country: response.data.success.source.country,
+        persistor.purge();
+        
+        
+        const cartItems = {
+          
         };
 
         onClearCart();
+
         await axios
-          .post("http://localhost:5000/create", book)
-          .then(() => console.log(book))
+          .post("http://localhost:5000/create", cartItems)
+          .then(() => console.log(cartItems))
           .catch((err) => {
             console.error("");
           });
@@ -74,4 +72,11 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
 const mapDispatchToProps = (dispatch) => ({
   onClearCart: () => dispatch(clearCart()),
 });
-export default connect(null, mapDispatchToProps)(StripeCheckoutButton);
+
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+});
+
+
+export default connect( mapStateToProps, mapDispatchToProps)(StripeCheckoutButton);
+// export default connect(mapDispatchToProps)(StripeCheckoutButton)
