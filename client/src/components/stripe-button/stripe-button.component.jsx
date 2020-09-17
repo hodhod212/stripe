@@ -3,13 +3,10 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { connect } from "react-redux";
 import { clearCart } from "../../redux/cart/cart.actions";
-<<<<<<< HEAD
 import { persistor } from "../../redux/store";
-=======
 import { createStructuredSelector } from "reselect";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
 
->>>>>>> json-abbe
 const StripeCheckoutButton = ({ price, onClearCart }) => {
   // const myprops = Props.cartItems
   const priceForStripe = price * 100;
@@ -27,19 +24,13 @@ const StripeCheckoutButton = ({ price, onClearCart }) => {
       },
     })
       .then(async (response) => {
-<<<<<<< HEAD
         window.location.href = "/success";
         persistor.purge();
-=======
-        alert("succesful payment");
->>>>>>> json-abbe
+
         console.log("response", response.data);
         persistor.purge();
-        
-        
-        const cartItems = {
-          
-        };
+
+        const cartItems = {};
         onClearCart();
 
         await axios
@@ -80,6 +71,8 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-
-export default connect( mapStateToProps, mapDispatchToProps)(StripeCheckoutButton);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StripeCheckoutButton);
 // export default connect(mapDispatchToProps)(StripeCheckoutButton)
