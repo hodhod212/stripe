@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import PayPal from "./PayPal";
-
-function PayPalPayment(price) {
+import { persistor } from "../../redux/store";
+function PayPalPayment() {
   const [checkout, setCheckout] = useState(false);
+
   return (
     <div>
       {checkout ? (
-        <PayPal price={price} />
+        <PayPal />
       ) : (
         <button
           onClick={() => {
@@ -19,4 +20,5 @@ function PayPalPayment(price) {
     </div>
   );
 }
+persistor.purge();
 export default PayPalPayment;
