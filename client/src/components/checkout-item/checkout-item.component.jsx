@@ -20,7 +20,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const qw = { quantity, price, name };
   axios
     .post("http://localhost:5000/create", qw)
-    .then(() => console.log("Book Created"))
+    .then(() => console.log(" Created"))
     .catch((err) => {
       console.error(err);
     });
