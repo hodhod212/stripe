@@ -34,7 +34,6 @@ app.get("/home", function (req, res) {
 });
 
 app.post("/create", function (req, res) {
-  
   const newBook = {
     Amount: req.body.Amount,
     Name: req.body.Name,
@@ -52,13 +51,6 @@ app.post("/create", function (req, res) {
   };
   books.push(newBook);
   boks.push(oldBook);
-  console.log(books);
-  console.log(boks);
-  var json2 = JSON.stringify(oldBook);
-  var json = JSON.stringify(newBook);
-  // fs.appendFileSync("message.json", json);
-  // fs.appendFileSync("message.json", json2);
-  // fs.appendFileSync("message.json", ",");
 });
 
 if (process.env.NODE_ENV === "production") {
@@ -80,24 +72,20 @@ app.post("/payment", (req, res) => {
     amount: req.body.amount,
     currency: "usd",
   };
-// app.post("/success", (reeq,res) => {
-//   const session = {
 
-//   }
-// })
   stripe.charges.create(body, (stripeErr, stripeRes) => {
     if (stripeErr) {
       res.status(500).send({ error: stripeErr });
     } else {
       const order = {
-        tokenId: req.body.token.id
-      }
-    boks.push(order)
-      fs.appendFileSync('message.json', JSON.stringify(boks), (error)=>{
-        if(error){
-          throw error
+        tokenId: req.body.token.id,
+      };
+      boks.push(order);
+      fs.writeFileSync("message.json", JSON.stringify(boks), (error) => {
+        if (error) {
+          throw error;
         }
-      })
+      });
       res.status(200).send({ success: stripeRes });
     }
   });

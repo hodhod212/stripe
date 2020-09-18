@@ -8,7 +8,6 @@ import { createStructuredSelector } from "reselect";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
 
 const StripeCheckoutButton = ({ price, onClearCart }) => {
-  // const myprops = Props.cartItems
   const priceForStripe = price * 100;
   const publishableKey =
     "pk_test_51HPp21Ei9eadDgdeQQALFAL0uIku87FMAqdgiSMrxrqVKjSHTZhcSnLgMAA348RbP2oLk5LZC4UNw07B5Df2llAJ00N0tIBFag";

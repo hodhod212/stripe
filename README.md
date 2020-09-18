@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 Important notice: if localhost in client is not in 3000 then you have to change port of localhost in this file in server.js :app.use(
 cors({
@@ -11,7 +11,7 @@ How to start:
 1- npm i then npm start
 2- Open second terminal then npm i then npm start
 
-# ----------------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 - Gothenburg Clothing
 
@@ -73,7 +73,7 @@ sources:https://stackoverflow.com/questions/54952355/how-to-post-data-from-react
 https://github.com/ZhangMYihua/crwn-clothing
 https://rapidapi.com/blog/axios-react-api-tutorial/
 
-# ------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 Important notice: if localhost in client is not in 3000 then you have to change port of localhost in this file in server.js :app.use(
 cors({
@@ -86,6 +86,14 @@ How to start:
 1- npm i then npm start
 2- Open second terminal then npm i then npm start
 
-# ----------------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 Github repository: https://github.com/hodhod212/stripe.git
+
+# -------------------------------------------------------------------------
+
+Payment by Stripe:
+cart: 4242 4242 4242 4242
+01/21 123
+Payment by PayPal:
+You make a sandbox account in PayPal and pay with your sandbox information
