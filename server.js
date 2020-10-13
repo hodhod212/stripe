@@ -52,7 +52,6 @@ app.post("/create", function (req, res) {
   books.push(newBook);
   boks.push(oldBook);
 });
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 

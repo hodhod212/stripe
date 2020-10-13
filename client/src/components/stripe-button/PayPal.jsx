@@ -17,7 +17,7 @@ function Paypal({ total, onClearCart }) {
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "Cool looking table",
+                description: "Cool looking product",
                 amount: {
                   currency_code: "USD",
                   value: total,
@@ -42,7 +42,7 @@ function Paypal({ total, onClearCart }) {
         },
       })
       .render(paypal.current);
-  }, []);
+  }, [total, onClearCart]);
 
   return (
     <div>
